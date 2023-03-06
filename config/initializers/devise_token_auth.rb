@@ -60,4 +60,18 @@ DeviseTokenAuth.setup do |config|
   # devise confirmable module. If you want to use devise confirmable module and
   # send email, set it to true. (This is a setting for compatibility)
   config.send_confirmation_email = true
+
+  # By default this value is expected to be sent by the client so that the 
+  # API knows where to redirect users after successful email confirmation.
+  config.default_confirm_success_url = ENV["DEFAULT_CONFIRM_SUCCESS_URL"]
+
+  # By default, the password-reset confirmation link redirects to the client with valid session credentials as querystring params.
+  config.require_client_password_reset_token = true
+
+  # By default this value is expected to be sent by the client so that the 
+  # API knows where to redirect users after successful password resets.
+  config.default_password_reset_url = ENV["DEFAULT_PASSWORD_RESET_URL"]
+
+  # By default, old tokens are not invalidated when password is changed.
+  config.remove_tokens_after_password_reset = true
 end
