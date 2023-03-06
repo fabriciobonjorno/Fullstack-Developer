@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USERNAME=postgres
+    ports:
+      - "5432:5432"
+  
+  client: &client
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: DockerFile
+    command: bash start-client.sh
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./client:/var/www/html
+    ports:
+      - 3000:3000
+  
+  api: &api
+    container_name: api
+    stdin_open: true
+    build: 
+      context: .
+      dockerfile: DockerFile
+    tty: true
+    command: bash start.sh
+    volumes:
+      - .:/api
+      - .:/client
+    ports:
+      - 3030:3030
+    depends_on:
+      - db
+    links:
+      - db

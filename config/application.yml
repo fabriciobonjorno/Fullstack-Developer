@@ -1,2 +1,4 @@
 DEFAULT_CONFIRM_SUCCESS_URL: 'http://localhost:3000/login'
 DEFAULT_PASSWORD_RESET_URL: 'http://localhost:3000/reset-password'
+DB_USERNAME: 'postgres'
+DB_PASSWORD: 'postgres'
