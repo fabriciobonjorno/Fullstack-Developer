@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :authorize_admin, only: %i[index new create destroy]
   before_action :set_users, only: %i[edit update destroy]
 
   def index
@@ -42,6 +43,12 @@ private
 
   def users_params
     params.require(:user).permit(:full_name, :email, :password, :password_confirmation, :role, :avatar_image, :url_image)
+  end
+
+  def authorize_admin
+    return if current_user.admin?
+
+    render json: { message: "You don't have permission for this action." }
   end
 
 end

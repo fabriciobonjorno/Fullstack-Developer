@@ -7,4 +7,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable, :trackable
   include DeviseTokenAuth::Concerns::User
+
+  enum status: %i[admin no_admin]
+
+
+  def admin?
+    role == 'admin'
+  end
 end
