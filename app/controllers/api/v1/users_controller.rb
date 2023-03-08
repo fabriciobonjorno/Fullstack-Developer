@@ -35,6 +35,12 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def import
+    file = params[:file]
+    ImportUsersService.new(file).call
+    render(json: { message: "Activity Data Imported" }, status: :ok)
+  end
+
 private
 
   def set_users
